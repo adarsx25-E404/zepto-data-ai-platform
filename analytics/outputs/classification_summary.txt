@@ -1,0 +1,19 @@
+Titanic Classification Summary
+==================================================
+
+                       model  accuracy  precision   recall       f1  roc_auc
+         Logistic Regression  0.808989   0.783333 0.691176 0.734375 0.860963
+               Decision Tree  0.769663   0.690141 0.720588 0.705036 0.754144
+               Random Forest  0.808989   0.765625 0.720588 0.742424 0.819586
+Logistic Regression Balanced  0.792135   0.718310 0.750000 0.733813 0.861230
+   Logistic Regression SMOTE  0.797753   0.735294 0.735294 0.735294 0.866711
+         Random Forest Tuned  0.803371   0.800000 0.647059 0.715447 0.821591
+
+Best Random Forest Parameters:
+{'model__max_depth': None, 'model__min_samples_split': 5, 'model__n_estimators': 200}
+
+Best Cross-Validation F1:
+0.7453
+
+Random Forest OOB Score:
+0.8073

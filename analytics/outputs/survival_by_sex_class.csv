@@ -1,0 +1,7 @@
+sex,pclass,survived
+female,1,0.9674
+female,2,0.9211
+female,3,0.5
+male,1,0.3689
+male,2,0.1574
+male,3,0.1354

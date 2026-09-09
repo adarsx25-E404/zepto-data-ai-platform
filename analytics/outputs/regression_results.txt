@@ -1,0 +1,15 @@
+TITANIC FARE REGRESSION RESULTS
+==================================================
+
+Training rows: 711
+Testing rows: 178
+
+MAE: 18.373542
+RMSE: 41.292124
+R2: 0.360916
+Adjusted R2: 0.270208
+
+Predictors after preprocessing: 22
+
+Heteroscedasticity conclusion:
+The residual spread changes substantially across prediction ranges, suggesting possible heteroscedasticity.

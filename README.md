@@ -6,17 +6,37 @@ A capstone project containing three modules:
 2. Analytics & Machine Learning
 3. GenAI Support Assistant
 
-## Modules
+---
 
-### Data Pipeline
-Web scraping, data cleaning, SQLite database, SQL analysis and pandas analysis.
+# Module 1 — Data Pipeline
 
-### Analytics
-Titanic exploratory data analysis, classification, imbalance handling, hyperparameter tuning and regression.
+## Overview
 
-### Support Assistant
-Document embeddings, ChromaDB retrieval, LangGraph orchestration and FastAPI.
+The Data Pipeline module collects book information from Books to Scrape, cleans the data, converts prices from GBP to INR, stores the data in a normalized SQLite database, and performs SQL and pandas analysis.
 
-## Status
+## Data Source
 
-Project setup completed.
+Website:
+
+https://books.toscrape.com/
+
+The scraper collects book information from multiple book categories.
+
+### Fields collected
+
+- `title`
+- `category`
+- `price_gbp`
+- `rating`
+- `availability`
+
+The final dataset contains 69 books across 3 categories.
+
+---
+
+## Installation
+
+Create and activate a Python virtual environment:
+
+```bash
+python -m venv .venv

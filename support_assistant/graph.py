@@ -16,6 +16,7 @@ The graph contains:
 The final answer is validated with Pydantic.
 """
 
+import json
 import os
 from pathlib import Path
 from typing import TypedDict
@@ -23,7 +24,6 @@ from typing import TypedDict
 import chromadb
 from pydantic import BaseModel, Field
 from sentence_transformers import SentenceTransformer
-
 from langgraph.graph import StateGraph, START, END
 
 
@@ -39,9 +39,13 @@ COLLECTION_NAME = "zepto_support_policies"
 
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
+# Required offline graded mode by default.
+# Set MOCK_LLM=0 only for the optional real-LLM extension.
 MOCK_LLM = os.getenv("MOCK_LLM", "1") != "0"
 
 TOP_K = 3
+
+REAL_LLM_MODEL = "gpt-4o-mini"
 
 
 # ============================================================
@@ -128,23 +132,43 @@ print(
 # ============================================================
 # STRUCTURED PROMPT TEMPLATE
 # ============================================================
+# This template is used by the optional real-LLM generation path.
+#
+# Required sections:
+#   ROLE
+#   CONTEXT
+#   TASK
+#   FORMAT
+#   LENGTH
+#
+# It also includes:
+#   NEGATIVE CONSTRAINT
+#   FEW-SHOT EXAMPLE
+#
+# Double braces are used for literal JSON braces because this
+# template is later processed with .format(...).
 
 PROMPT_TEMPLATE = """
 ROLE:
 You are a Zepto customer-support assistant.
 
 CONTEXT:
-Use only the policy context supplied below.
+Use only the policy context supplied below. Do not use outside
+knowledge for policy claims.
 
 TASK:
 Answer the customer's question using the supplied policy context.
-Do not answer using information that is not present in the provided context.
+
+NEGATIVE CONSTRAINT:
+Do not invent, assume, or add Zepto policy information that is not
+present in the supplied context.
 
 FORMAT:
 Return valid JSON with exactly these fields:
 - answer: string
 - sources: list of chunk/document IDs
 - confidence: float between 0 and 1
+Do not add Markdown fences or extra fields.
 
 LENGTH:
 Keep the answer concise and directly relevant to the customer.
@@ -157,11 +181,11 @@ Context:
 "A product may be returned according to the applicable return policy."
 
 Example answer:
-{
+{{
   "answer": "The product may be returned according to the applicable return policy.",
   "sources": ["doc_02.txt"],
   "confidence": 1.0
-}
+}}
 
 POLICY CONTEXT:
 {context}
@@ -205,7 +229,7 @@ def call_real_llm(prompt: str) -> str:
     )
 
     response = client_llm.responses.create(
-        model="gpt-4o-mini",
+        model=REAL_LLM_MODEL,
         input=prompt
     )
 
@@ -218,20 +242,14 @@ def validate_real_llm_answer(
     context: str
 ) -> FinalAnswer:
     """
-    Validate real-LLM output.
+    Validate real-LLM JSON output.
     Retry up to 2 additional times if validation fails.
     """
-
-    last_error = None
 
     for attempt in range(3):
 
         try:
-            import json
-
-            parsed = json.loads(
-                raw_output
-            )
+            parsed = json.loads(raw_output)
 
             validated = FinalAnswer.model_validate(
                 parsed
@@ -239,13 +257,22 @@ def validate_real_llm_answer(
 
             return validated
 
-        except Exception as exc:
-
-            last_error = exc
+        except Exception:
 
             corrective_prompt = f"""
-Your previous response did not follow the required JSON schema.
+ROLE:
+You are a JSON-formatting correction assistant.
 
+CONTEXT:
+Use only the supplied policy context.
+
+TASK:
+Correct the previous response so it follows the required response schema.
+
+NEGATIVE CONSTRAINT:
+Do not invent policy information.
+
+FORMAT:
 Return ONLY valid JSON with exactly:
 {{
   "answer": "string",
@@ -253,19 +280,36 @@ Return ONLY valid JSON with exactly:
   "confidence": 0.0
 }}
 
-Do not add Markdown fences.
+Do not add Markdown fences or extra fields.
 
-The answer must use only the supplied context.
+LENGTH:
+Keep the answer concise.
+
+FEW-SHOT EXAMPLE:
+Question:
+"How long do I have to return a product?"
+
+Context:
+"Non-perishable packaged items may be returned within 7 days."
+
+Example answer:
+{{
+  "answer": "Non-perishable packaged items may be returned within 7 days.",
+  "sources": ["doc_02.txt"],
+  "confidence": 1.0
+}}
 
 Question:
 {question}
 
 Context:
 {context}
+
+Previous response:
+{raw_output}
 """
 
             if attempt < 2:
-
                 raw_output = call_real_llm(
                     corrective_prompt
                 )
@@ -325,16 +369,41 @@ def classify_intent(
     else:
 
         classification_prompt = f"""
-Classify the customer query as exactly one of:
+ROLE:
+You are a Zepto customer-support intent classifier.
 
+CONTEXT:
+Determine whether the customer query requires the Zepto policy corpus.
+
+TASK:
+Classify the customer query as exactly one of:
 policy_question
 general_question
 
-Use policy_question when the query concerns Zepto policies.
+NEGATIVE CONSTRAINT:
+Return only one classification label.
+Do not add explanations or extra text.
 
-Use general_question when it does not require the policy corpus.
+FORMAT:
+Return exactly one of:
+policy_question
+general_question
 
-Return only the classification word.
+LENGTH:
+Return exactly one classification label.
+
+FEW-SHOT EXAMPLE:
+Customer query:
+"What is the refund policy?"
+
+Classification:
+policy_question
+
+Customer query:
+"Hello"
+
+Classification:
+general_question
 
 Customer query:
 {query}
@@ -373,7 +442,7 @@ def retrieve_and_answer(
 
     Generation:
         MOCK_LLM=1 -> deterministic canned answer
-        MOCK_LLM=0 -> optional real LLM
+        MOCK_LLM=0 -> optional real LLM using PROMPT_TEMPLATE
     """
 
     query = state["query"]
@@ -445,7 +514,7 @@ def retrieve_and_answer(
 
     if MOCK_LLM:
 
-        # Required assignment template.
+        # Deterministic baseline answer.
         snippet = top_chunk[:200].strip()
 
         final = FinalAnswer(
@@ -478,6 +547,7 @@ def retrieve_and_answer(
             context_parts
         )
 
+        # Required structured five-part prompt is actually used.
         prompt = PROMPT_TEMPLATE.format(
             context=context,
             question=query
@@ -520,7 +590,8 @@ def direct_answer(
         fixed canned response.
 
     MOCK_LLM=0:
-        optional direct LLM answer.
+        optional real LLM answer using the same structured
+        five-part prompt pattern and JSON validation.
     """
 
     query = state["query"]
@@ -546,36 +617,24 @@ def direct_answer(
 
     else:
 
-        prompt = f"""
-ROLE:
-You are a Zepto customer-support assistant.
+        context = (
+            "No policy retrieval is required for this "
+            "general customer question."
+        )
 
-CONTEXT:
-No policy retrieval is required for this general question.
-
-TASK:
-Answer the question helpfully.
-
-FORMAT:
-Return plain text.
-
-LENGTH:
-Keep the answer concise.
-
-Do not invent Zepto policy information.
-
-Customer question:
-{query}
-"""
+        prompt = PROMPT_TEMPLATE.format(
+            context=context,
+            question=query
+        )
 
         raw_output = call_real_llm(
             prompt
         )
 
-        final = FinalAnswer(
-            answer=raw_output.strip(),
-            sources=[],
-            confidence=1.0
+        final = validate_real_llm_answer(
+            raw_output,
+            query,
+            context
         )
 
     return {

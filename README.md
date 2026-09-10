@@ -6,37 +6,41 @@ A capstone project containing three modules:
 2. Analytics & Machine Learning
 3. GenAI Support Assistant
 
----
-
-# Module 1 — Data Pipeline
-
-## Overview
-
-The Data Pipeline module collects book information from Books to Scrape, cleans the data, converts prices from GBP to INR, stores the data in a normalized SQLite database, and performs SQL and pandas analysis.
-
-## Data Source
-
-Website:
-
-https://books.toscrape.com/
-
-The scraper collects book information from multiple book categories.
-
-### Fields collected
-
-- `title`
-- `category`
-- `price_gbp`
-- `rating`
-- `availability`
-
-The final dataset contains 69 books across 3 categories.
+The project demonstrates web scraping, data cleaning, SQL analysis, exploratory data analysis, machine learning, model evaluation, regression, retrieval-augmented generation (RAG), LangGraph orchestration, FastAPI, and Docker.
 
 ---
 
-## Installation
+## Project Structure
 
-Create and activate a Python virtual environment:
-
-```bash
-python -m venv .venv
+```text
+zepto-data-ai-platform/
+│
+├── data_pipeline/
+│   ├── scraper.py
+│   ├── clean_data.py
+│   ├── database.py
+│   ├── sql_analysis.py
+│   └── outputs/
+│
+├── analytics/
+│   ├── 01_eda.py
+│   ├── 02_classification.py
+│   ├── 03_regression.py
+│   ├── titanic.csv
+│   └── outputs/
+│
+├── support_assistant/
+│   ├── docs/
+│   ├── data/
+│   ├── embeddings.py
+│   ├── retrieval.py
+│   ├── graph.py
+│   ├── api.py
+│   ├── create_policies.py
+│   ├── Dockerfile
+│   └── README.md
+│
+├── .gitignore
+├── requirements.txt
+├── run_project.py
+└── README.md

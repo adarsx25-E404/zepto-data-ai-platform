@@ -7,13 +7,13 @@ Titanic Classification Summary
                Random Forest  0.808989   0.765625 0.720588 0.742424 0.819586
 Logistic Regression Balanced  0.792135   0.718310 0.750000 0.733813 0.861230
    Logistic Regression SMOTE  0.797753   0.735294 0.735294 0.735294 0.866711
-         Random Forest Tuned  0.803371   0.800000 0.647059 0.715447 0.821591
+         Random Forest Tuned  0.831461   0.865385 0.661765 0.750000 0.838904
 
 Best Random Forest Parameters:
-{'model__max_depth': None, 'model__min_samples_split': 5, 'model__n_estimators': 200}
+{'model__max_depth': 5, 'model__max_features': 'sqrt', 'model__n_estimators': 200}
 
 Best Cross-Validation F1:
-0.7453
+0.7408
 
 Random Forest OOB Score:
 0.8073

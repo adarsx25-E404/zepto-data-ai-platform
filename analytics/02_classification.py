@@ -545,10 +545,7 @@ param_grid = {
         5,
         10,
     ],
-    "model__min_samples_split": [
-        2,
-        5,
-    ],
+    "model__max_features": ["sqrt", "log2"],
 }
 
 

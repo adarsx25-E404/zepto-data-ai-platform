@@ -31,7 +31,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 
 from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.metrics import (
@@ -357,6 +357,38 @@ decision_tree_model = evaluate_model(
     "Decision Tree",
 )
 
+# ---------------------------------------------------------
+# DECISION TREE VISUALIZATION
+# ---------------------------------------------------------
+
+tree_preprocessor = decision_tree_model.named_steps["preprocessor"]
+tree_model = decision_tree_model.named_steps["model"]
+
+tree_feature_names = tree_preprocessor.get_feature_names_out()
+
+plt.figure(figsize=(24, 14))
+
+plot_tree(
+    tree_model,
+    feature_names=tree_feature_names,
+    class_names=["Did Not Survive", "Survived"],
+    filled=True,
+    rounded=True,
+    max_depth=4,
+    fontsize=8,
+)
+
+plt.title("Decision Tree Classifier - Titanic Survival")
+plt.tight_layout()
+
+plt.savefig(
+    f"{OUTPUT_DIR}/decision_tree_plot.png",
+    dpi=150,
+    bbox_inches="tight",
+)
+
+plt.close()
+
 
 random_forest_model = evaluate_model(
     random_forest_pipeline,
@@ -527,6 +559,7 @@ rf_pipeline = Pipeline(
         (
             "model",
             RandomForestClassifier(
+                oob_score=True,
                 random_state=42,
                 n_jobs=-1,
             ),
@@ -574,6 +607,16 @@ print(
 
 
 best_rf = grid_search.best_estimator_
+best_rf_oob_score = (
+    best_rf
+    .named_steps["model"]
+    .oob_score_
+)
+
+print(
+    f"\nBest tuned Random Forest OOB Score: "
+    f"{best_rf_oob_score:.4f}"
+)
 
 
 best_rf = evaluate_model(
@@ -705,7 +748,7 @@ with open(
     )
 
     file.write(
-        f"{oob_score:.4f}"
+        f"{best_rf_oob_score:.4f}"
     )
 
 

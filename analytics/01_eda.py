@@ -582,6 +582,12 @@ for pair in pairs[:2]:
 
 # ============================================================
 # 6. MULTIVARIATE DATA STORY CHARTS
+#
+# Qualifying multivariate charts:
+# 3. Sex + Passenger Class + Survival
+# 4. Age + Fare + Survival
+# 5. Passenger Class + Fare + Survival
+# 6. Age Group + Sex + Survivalpython .\analytics\01_eda.py
 # ============================================================
 
 print("\n" + "=" * 70)
@@ -617,6 +623,52 @@ plt.savefig(
 
 plt.close()
 
+# ------------------------------------------------------------
+# CHART 6: Age Group + Sex + Survival
+# ------------------------------------------------------------
+
+# Create age groups for a multivariate comparison.
+df["age_group"] = pd.cut(
+    df["age"],
+    bins=[0, 12, 18, 35, 60, 100],
+    labels=[
+        "Child",
+        "Teenager",
+        "Young Adult",
+        "Adult",
+        "Senior"
+    ],
+    include_lowest=True
+)
+
+plt.figure(figsize=(9, 5))
+
+sns.barplot(
+    data=df,
+    x="age_group",
+    y="survived",
+    hue="sex"
+)
+
+plt.title(
+    "Survival Rate by Age Group and Sex"
+)
+
+plt.xlabel(
+    "Age Group"
+)
+
+plt.ylabel(
+    "Survival Rate"
+)
+
+plt.tight_layout()
+
+plt.savefig(
+    f"{OUTPUT_DIR}/story_06_age_group_sex_survival.png"
+)
+
+plt.close()
 
 # ------------------------------------------------------------
 # CHART 2: Survival by Passenger Class

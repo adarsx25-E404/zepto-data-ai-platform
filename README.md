@@ -1,8 +1,3 @@
-Yes. Below is a **stronger, submission-ready `README.md`** with the project overview, architecture, setup, all three modules, actual results, design decisions, API, Docker, deployment, testing, outputs, and Git workflow.
-
-Copy **everything inside this single code block** into your `README.md`.
-
-````markdown
 # Zepto Data & AI Platform
 
 A complete end-to-end capstone project combining **data engineering, web scraping, SQL analytics, exploratory data analysis, machine learning, and an AI-powered support assistant** into a single Python platform.
@@ -50,7 +45,7 @@ The project contains three modules.
 
 The first module implements a complete data pipeline:
 
-```text
+
 Website
    ↓
 Web Scraping
@@ -66,7 +61,7 @@ SQLite Database
 SQL Analytics
    ↓
 Pandas Analysis
-````
+
 
 The module:
 
@@ -140,9 +135,8 @@ The assistant supports:
 
 ---
 
-# 🏗️ Project Architecture
+#  Project Architecture
 
-```text
                          ZEPTO DATA & AI PLATFORM
                                   │
               ┌───────────────────┼───────────────────┐
@@ -173,11 +167,10 @@ The assistant supports:
                                   │
                                   ▼
                        Reproducible Capstone
-```
 
 ---
 
-# 🛠️ Technologies Used
+#  Technologies Used
 
 ## Module 1
 
@@ -219,9 +212,9 @@ The assistant supports:
 
 ---
 
-# 📁 Project Structure
+#  Project Structure
 
-```text
+
 zepto-data-ai-platform/
 │
 ├── analytics/
@@ -242,8 +235,8 @@ zepto-data-ai-platform/
 ├── data_pipeline/
 │   ├── scrape_books.py
 │   ├── clean_books.py
-│   ├── load_books_db.py
-│   ├── query_books.py
+│   ├── database.py
+│   ├── sql_analysis.py
 │   ├── outputs/
 │   │   ├── books_raw.csv
 │   │   ├── books_clean.csv
@@ -278,18 +271,18 @@ zepto-data-ai-platform/
 ├── vercel.json
 ├── run_project.py
 └── README.md
-```
+
 
 ---
 
-# ⚙️ Installation and Setup
+#  Installation and Setup
 
 ## 1. Clone the Repository
 
-```bash
+
 git clone https://github.com/adarsx25-E404/zepto-data-ai-platform.git
 cd zepto-data-ai-platform
-```
+
 
 ---
 
@@ -297,27 +290,27 @@ cd zepto-data-ai-platform
 
 ### Windows PowerShell
 
-```powershell
+
 python -m venv .venv
-```
+
 
 Activate the environment:
 
-```powershell
+
 .\.venv\Scripts\Activate.ps1
-```
+
 
 If PowerShell blocks script execution, run:
 
-```powershell
+
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
+
 
 Then activate again:
 
-```powershell
+
 .\.venv\Scripts\Activate.ps1
-```
+
 
 ---
 
@@ -325,9 +318,9 @@ Then activate again:
 
 The complete local project uses:
 
-```powershell
+powershell
 pip install -r requirements-full.txt
-```
+
 
 The full dependency file contains the libraries required for:
 
@@ -346,9 +339,9 @@ The root `requirements.txt` is intentionally lightweight for the serverless depl
 
 For the complete capstone execution, use:
 
-```powershell
+powershell
 pip install -r requirements-full.txt
-```
+
 
 ---
 
@@ -358,19 +351,19 @@ The three modules can be executed independently.
 
 Recommended execution order:
 
-```text
+text
 Module 1
    ↓
 Module 2
    ↓
 Module 3
-```
+
 
 A convenience runner is also available:
 
-```powershell
+powershell
 python .\run_project.py
-```
+
 
 For maximum control and reproducibility, the individual commands for each module are provided below.
 
@@ -382,7 +375,7 @@ For maximum control and reproducibility, the individual commands for each module
 
 Module 1 demonstrates a complete ETL-style data pipeline.
 
-```text
+text
 Extract
   ↓
 Transform
@@ -390,7 +383,7 @@ Transform
 Load
   ↓
 Analyze
-```
+
 
 ---
 
@@ -398,9 +391,9 @@ Analyze
 
 Run:
 
-```powershell
+powershell
 python .\data_pipeline\scrape_books.py
-```
+
 
 The scraper collects:
 
@@ -416,9 +409,9 @@ The implementation collects more than the required minimum of 60 books.
 
 A total of:
 
-```text
+text
 69 books
-```
+
 
 were collected from three categories.
 
@@ -435,9 +428,9 @@ were collected from three categories.
 
 Run:
 
-```powershell
+powershell
 python .\data_pipeline\clean_books.py
-```
+
 
 The cleaning process:
 
@@ -454,15 +447,15 @@ The cleaning process:
 
 The required fixed exchange rate is:
 
-```text
+text
 1 GBP = 105.50 INR
-```
+
 
 The conversion is:
 
-```text
+text
 price_inr = price_gbp × 105.50
-```
+
 
 A fixed exchange rate is used instead of a live exchange-rate API so that the results remain deterministic and reproducible.
 
@@ -472,15 +465,15 @@ A fixed exchange rate is used instead of a live exchange-rate API so that the re
 
 Run:
 
-```powershell
-python .\data_pipeline\load_books_db.py
-```
+powershell
+python .\data_pipeline\database.py
+
 
 The SQLite database is created under:
 
-```text
+text
 data_pipeline/outputs/books.db
-```
+
 
 The database uses a normalized relational structure with multiple tables and primary-key/foreign-key relationships.
 
@@ -490,13 +483,13 @@ The database uses a normalized relational structure with multiple tables and pri
 
 Run:
 
-```powershell
-python .\data_pipeline\query_books.py
-```
+powershell
+python .\data_pipeline\sql_analysis.py
+
 
 The SQL analysis includes the required query operations:
 
-```text
+text
 SELECT
 WHERE
 ORDER BY
@@ -505,13 +498,13 @@ DISTINCT
 IN
 BETWEEN
 JOIN
-```
+
 
 The query results are saved under:
 
-```text
+text
 data_pipeline/outputs/
-```
+
 
 ---
 
@@ -519,17 +512,17 @@ data_pipeline/outputs/
 
 The project also demonstrates SQL-to-pandas analysis using:
 
-```python
+python
 pd.read_sql()
-```
+
 
 The SQL result sets are loaded into pandas DataFrames.
 
 The equivalent relational join is also implemented using:
 
-```python
+python
 pd.merge()
-```
+
 
 This demonstrates that the same relational operation can be represented using both SQL and pandas.
 
@@ -541,7 +534,7 @@ This demonstrates that the same relational operation can be represented using bo
 
 Module 2 performs a complete exploratory analysis and machine-learning workflow using the Titanic dataset.
 
-```text
+text
 Titanic Dataset
       ↓
 Data Loading
@@ -567,7 +560,7 @@ Random Forest Tuning
 Regression
       ↓
 Model Persistence
-```
+
 
 ---
 
@@ -575,16 +568,16 @@ Model Persistence
 
 The Titanic dataset is loaded and stored locally as:
 
-```text
+text
 analytics/titanic.csv
-```
+
 
 The resulting dataset contains:
 
-```text
+text
 889 rows
 13 columns
-```
+
 
 The local CSV is then reused by the analytics scripts.
 
@@ -630,10 +623,10 @@ The EDA includes:
 
 IQR analysis identified:
 
-```text
+text
 Age outliers  = 65
 Fare outliers = 114
-```
+
 
 The fare distribution contains several high-value observations.
 
@@ -701,21 +694,21 @@ Female first- and second-class passengers had particularly high survival rates, 
 
 The required correlation variables are:
 
-```text
+text
 survived
 pclass
 age
 sibsp
 parch
 fare
-```
+
 
 The following variables are intentionally excluded:
 
-```text
+text
 adult_male
 alone
-```
+
 
 Important correlations with survival include:
 
@@ -729,10 +722,10 @@ Important correlations with survival include:
 
 The strongest absolute off-diagonal relationships are approximately:
 
-```text
+text
 pclass ↔ fare   ≈ -0.55
 sibsp  ↔ parch  ≈  0.41
-```
+
 
 ### Interpretation
 
@@ -770,9 +763,9 @@ Fare also provides useful information because it is related to passenger class a
 
 Age and fare are standardized using:
 
-```text
+text
 StandardScaler
-```
+
 
 Approximate original statistics:
 
@@ -783,10 +776,10 @@ Approximate original statistics:
 
 After standardization:
 
-```text
+text
 Mean ≈ 0
 Standard deviation ≈ 1
-```
+
 
 The transformation is performed inside the preprocessing pipeline.
 
@@ -798,34 +791,34 @@ This ensures that preprocessing parameters are learned only from the training da
 
 The classification dataset is split using a stratified train/test split:
 
-```python
+python
 train_test_split(
     test_size=0.20,
     random_state=42,
     stratify=y
 )
-```
+
 
 Result:
 
-```text
+text
 Training rows = 711
 Testing rows  = 178
-```
+
 
 Target distribution:
 
-```text
+text
 Not Survived = 549
 Survived     = 340
-```
+
 
 Approximately:
 
-```text
+text
 61.75% Not Survived
 38.25% Survived
-```
+
 
 Stratification ensures that both training and test datasets retain a similar class distribution.
 
@@ -894,9 +887,9 @@ Models are first evaluated without explicit balancing.
 
 Balanced Logistic Regression uses:
 
-```python
+python
 class_weight="balanced"
-```
+
 
 This increases the importance of the minority class during training.
 
@@ -916,47 +909,47 @@ This prevents synthetic observations from contaminating the evaluation data.
 
 Random Forest hyperparameters are optimized using:
 
-```text
+text
 GridSearchCV
-```
+
 
 The search space includes:
 
-```text
+text
 n_estimators
 max_depth
 max_features
-```
+
 
 The Random Forest estimator uses:
 
-```python
+python
 RandomForestClassifier(
     oob_score=True,
     random_state=42,
     n_jobs=-1
 )
-```
+
 
 The best parameters were:
 
-```text
+text
 n_estimators = 200
 max_depth = 5
 max_features = sqrt
-```
+
 
 Best cross-validation F1-score:
 
-```text
+text
 0.7408
-```
+
 
 Out-of-bag score:
 
-```text
+text
 0.8073
-```
+
 
 ---
 
@@ -964,21 +957,21 @@ Out-of-bag score:
 
 The tuned Random Forest achieved:
 
-```text
+text
 Accuracy  = 0.8315
 Precision = 0.8654
 Recall    = 0.6618
 F1-score  = 0.7500
 ROC-AUC   = 0.8389
-```
+
 
 Based on the selected F1-focused tuning objective, the tuned Random Forest provides the strongest overall classification result.
 
 The trained complete pipeline is saved as:
 
-```text
+text
 analytics/outputs/best_random_forest_pipeline.joblib
-```
+
 
 ---
 
@@ -986,15 +979,15 @@ analytics/outputs/best_random_forest_pipeline.joblib
 
 The project generates a labeled Decision Tree visualization using:
 
-```python
+python
 plot_tree()
-```
+
 
 The output is:
 
-```text
+text
 analytics/outputs/decision_tree_plot.png
-```
+
 
 The visualization shows the learned decision structure and feature-based splitting rules.
 
@@ -1006,9 +999,9 @@ ROC curves are generated for the classification models.
 
 Output:
 
-```text
+text
 analytics/outputs/classification_roc_curves.png
-```
+
 
 The ROC-AUC comparison demonstrates the ranking performance of the different classifiers.
 
@@ -1020,9 +1013,9 @@ Logistic Regression and SMOTE Logistic Regression provide particularly strong RO
 
 The regression task predicts:
 
-```text
+text
 fare
-```
+
 
 using the available passenger-related features.
 
@@ -1041,10 +1034,10 @@ The regression pipeline includes preprocessing followed by the regression estima
 
 The model uses approximately:
 
-```text
+text
 22 predictors
 178 test observations
-```
+
 
 ---
 
@@ -1060,9 +1053,9 @@ Therefore, the regression results suggest possible **heteroscedasticity**, meani
 
 The residual plot is saved as:
 
-```text
+text
 analytics/outputs/fare_regression_residuals.png
-```
+
 
 ---
 
@@ -1072,15 +1065,15 @@ The project saves complete preprocessing + estimator pipelines using Joblib.
 
 ## Classification
 
-```text
+text
 analytics/outputs/best_random_forest_pipeline.joblib
-```
+
 
 ## Regression
 
-```text
+text
 analytics/outputs/fare_regression_pipeline.joblib
-```
+
 
 The saved pipelines can be reloaded and used on raw input data without manually rebuilding the preprocessing stages.
 
@@ -1094,7 +1087,7 @@ The third module implements an offline-capable Zepto policy support assistant us
 
 The complete architecture is:
 
-```text
+text
 Policy Documents
        ↓
 Document Chunking
@@ -1116,7 +1109,7 @@ Answer Generation
 Pydantic Validation
        ↓
 Final Response
-```
+
 
 ---
 
@@ -1124,7 +1117,7 @@ Final Response
 
 The assistant uses eight local policy documents:
 
-```text
+text
 support_assistant/docs/doc_01.txt
 support_assistant/docs/doc_02.txt
 support_assistant/docs/doc_03.txt
@@ -1133,7 +1126,7 @@ support_assistant/docs/doc_05.txt
 support_assistant/docs/doc_06.txt
 support_assistant/docs/doc_07.txt
 support_assistant/docs/doc_08.txt
-```
+
 
 The system is designed to operate locally without requiring an external API in mock mode.
 
@@ -1145,10 +1138,10 @@ The policy documents are divided into smaller chunks.
 
 The current configuration uses approximately:
 
-```text
+text
 Chunk size = 500 characters
 Overlap    = 100 characters
-```
+
 
 Chunk overlap helps preserve context between neighboring text segments.
 
@@ -1158,9 +1151,9 @@ Chunk overlap helps preserve context between neighboring text segments.
 
 The embedding model is:
 
-```text
+text
 all-MiniLM-L6-v2
-```
+
 
 Sentence Transformers converts policy chunks into numerical vector representations.
 
@@ -1172,15 +1165,15 @@ These vectors are stored in ChromaDB.
 
 The local vector database is stored under:
 
-```text
+text
 support_assistant/data/chroma_db/
-```
+
 
 The collection is:
 
-```text
+text
 zepto_support_policies
-```
+
 
 The embedding script clears previous records before ingestion to avoid duplicate entries during repeated runs.
 
@@ -1190,9 +1183,9 @@ The embedding script clears previous records before ingestion to avoid duplicate
 
 For each user query, the system retrieves the:
 
-```text
+text
 Top 3
-```
+
 
 most relevant policy chunks from ChromaDB.
 
@@ -1206,21 +1199,21 @@ The assistant is implemented using LangGraph `StateGraph`.
 
 The state is represented using:
 
-```python
+python
 TypedDict
-```
+
 
 The main nodes are:
 
-```text
+text
 classify_intent
 retrieve_and_answer
 direct_answer
-```
+
 
 The workflow is:
 
-```text
+text
                   ┌─────────────────────┐
                   │    User Query       │
                   └──────────┬──────────┘
@@ -1243,7 +1236,7 @@ The workflow is:
                     ┌─────────────────┐
                     │ Final Response  │
                     └─────────────────┘
-```
+
 
 ---
 
@@ -1253,7 +1246,7 @@ The required keyword heuristic is used for policy intent detection.
 
 Supported keywords include:
 
-```text
+text
 delivery
 return
 refund
@@ -1262,7 +1255,7 @@ tracking
 cancel
 gift card
 support hours
-```
+
 
 Queries containing these policy-related terms are routed through the retrieval-and-answer path.
 
@@ -1274,7 +1267,7 @@ Other questions are handled through the direct-answer path.
 
 The assistant uses a structured prompt containing:
 
-```text
+text
 ROLE
 CONTEXT
 TASK
@@ -1282,7 +1275,7 @@ NEGATIVE CONSTRAINT
 FORMAT
 LENGTH
 FEW-SHOT EXAMPLE
-```
+
 
 The prompt design helps constrain the generated answer to the retrieved policy context.
 
@@ -1296,23 +1289,23 @@ The few-shot example demonstrates the expected response format.
 
 The final answer is validated using a Pydantic schema:
 
-```text
+text
 FinalAnswer
-```
+
 
 The response structure contains:
 
-```text
+text
 answer
 sources
 confidence
-```
+
 
 The confidence value is constrained between:
 
-```text
+text
 0.0 and 1.0
-```
+
 
 This ensures that the final API output follows a predictable structured format.
 
@@ -1324,9 +1317,9 @@ The project supports a fully offline mock configuration.
 
 Set:
 
-```text
+text
 MOCK_LLM=1
-```
+
 
 In mock mode:
 
@@ -1344,9 +1337,9 @@ This makes the project suitable for reproducible demonstrations and grading envi
 
 A real LLM can optionally be enabled using:
 
-```text
+text
 MOCK_LLM=0
-```
+
 
 When real LLM mode is enabled, the generated response is validated against the Pydantic schema.
 
@@ -1354,9 +1347,9 @@ If validation fails, the system supports retries.
 
 The maximum generation attempts are:
 
-```text
+text
 3 total attempts
-```
+
 
 This corresponds to one initial attempt plus up to two additional retries.
 
@@ -1366,17 +1359,17 @@ This corresponds to one initial attempt plus up to two additional retries.
 
 ## Step 1 - Activate the environment
 
-```powershell
+powershell
 .\.venv\Scripts\Activate.ps1
-```
+
 
 ---
 
 ## Step 2 - Install dependencies
 
-```powershell
+powershell
 pip install -r requirements-full.txt
-```
+
 
 ---
 
@@ -1384,9 +1377,9 @@ pip install -r requirements-full.txt
 
 Run:
 
-```powershell
+powershell
 python .\support_assistant\embeddings.py
-```
+
 
 This:
 
@@ -1402,9 +1395,9 @@ This:
 
 Run:
 
-```powershell
+powershell
 uvicorn support_assistant.api:app --reload
-```
+
 
 The local API will then be available through the FastAPI application.
 
@@ -1414,31 +1407,31 @@ The local API will then be available through the FastAPI application.
 
 The main endpoint is:
 
-```text
+text
 POST /ask
-```
+
 
 ---
 
 ## Example Request
 
-```json
+json
 {
   "query": "What is the refund policy?"
 }
-```
+
 
 ---
 
 ## PowerShell Example
 
-```powershell
+powershell
 Invoke-RestMethod `
   -Uri "http://127.0.0.1:8000/ask" `
   -Method POST `
   -ContentType "application/json" `
   -Body '{"query":"What is the refund policy?"}'
-```
+ 
 
 ---
 
@@ -1446,15 +1439,15 @@ Invoke-RestMethod `
 
 The API provides:
 
-```text
+.text
 GET /health
-```
+
 
 Example:
 
-```text
+text
 http://127.0.0.1:8000/health
-```
+
 
 This endpoint can be used to verify that the FastAPI service is running.
 
@@ -1464,15 +1457,15 @@ This endpoint can be used to verify that the FastAPI service is running.
 
 FastAPI automatically provides Swagger documentation at:
 
-```text
+text
 /docs
-```
+
 
 When running locally:
 
-```text
+text
 http://127.0.0.1:8000/docs
-```
+
 
 The documentation allows the API endpoints to be tested directly from a browser.
 
@@ -1482,35 +1475,35 @@ The documentation allows the API endpoints to be tested directly from a browser.
 
 ## Refund
 
-```json
+json
 {
   "query": "What is the refund policy?"
 }
-```
+
 
 ## Delivery
 
-```json
+json
 {
   "query": "How long does delivery take?"
 }
-```
+
 
 ## Return
 
-```json
+json
 {
   "query": "Can I return an item?"
 }
-```
+
 
 ## Membership
 
-```json
+json
 {
   "query": "What are the membership benefits?"
 }
-```
+
 
 ---
 
@@ -1518,27 +1511,27 @@ The documentation allows the API endpoints to be tested directly from a browser.
 
 A Dockerfile is included at:
 
-```text
+text
 support_assistant/Dockerfile
-```
+
 
 Build the Docker image:
 
-```powershell
+powershell
 docker build -t zepto-support-assistant .\support_assistant
-```
+
 
 Run the container:
 
-```powershell
+powershell
 docker run -p 8000:8000 zepto-support-assistant
-```
+
 
 The FastAPI application will then be accessible through:
 
-```text
+text
 http://127.0.0.1:8000
-```
+
 
 ---
 
@@ -1546,42 +1539,42 @@ http://127.0.0.1:8000
 
 The repository includes a lightweight serverless deployment adapter:
 
-```text
+text
 api/index.py
-```
+
 
 and deployment configuration:
 
-```text
+text
 vercel.json
-```
+
 
 The deployed application exposes:
 
-```text
+text
 /
  /health
  /docs
  /ask
-```
+
 
 The Vercel adapter is intentionally lightweight.
 
 It does not import the full:
 
-```text
+text
 SentenceTransformer
 ChromaDB
 LangGraph
-```
+
 
 stack because those dependencies create a very large serverless bundle.
 
 Instead, the lightweight deployment adapter provides the production-facing API while the complete capstone AI implementation remains under:
 
-```text
+text
 support_assistant/
-```
+
 
 The full local implementation remains the primary implementation for the graded AI assistant.
 
@@ -1593,15 +1586,15 @@ Deployment is an additional capability and is not required for the core local im
 
 The default offline configuration is:
 
-```text
+text
 MOCK_LLM=1
-```
+
 
 Optional real LLM operation:
 
-```text
+text
 MOCK_LLM=0
-```
+
 
 API credentials, if required for real LLM operation, should be stored as environment variables rather than hard-coded into the source code.
 
@@ -1621,9 +1614,9 @@ It allows relational database concepts such as primary keys, foreign keys, norma
 
 The project uses:
 
-```text
+text
 1 GBP = 105.50 INR
-```
+
 
 as required.
 
@@ -1676,9 +1669,9 @@ F1-score is used as the GridSearchCV scoring metric because the classification t
 
 The Random Forest estimator uses:
 
-```python
+python
 oob_score=True
-```
+
 
 This provides an additional internal evaluation estimate using out-of-bag observations.
 
@@ -1706,11 +1699,11 @@ LangGraph was selected to make the assistant workflow explicit and modular.
 
 The workflow separates:
 
-```text
+text
 Intent Classification
 Retrieval + Answer
 Direct Answer
-```
+
 
 rather than placing all logic inside a single function.
 
@@ -1730,11 +1723,11 @@ Pydantic provides structured validation for final assistant responses.
 
 The expected schema contains:
 
-```text
+text
 answer
 sources
 confidence
-```
+
 
 This makes the API response predictable and machine-readable.
 
@@ -1744,18 +1737,18 @@ This makes the API response predictable and machine-readable.
 
 ## Module 1
 
-```text
+text
 data_pipeline/outputs/books_raw.csv
 data_pipeline/outputs/books_clean.csv
 data_pipeline/outputs/books.db
 data_pipeline/outputs/query_results.txt
-```
+
 
 ---
 
 ## Module 2
 
-```text
+text
 analytics/titanic.csv
 
 analytics/outputs/classification_results.csv
@@ -1767,16 +1760,16 @@ analytics/outputs/best_random_forest_pipeline.joblib
 analytics/outputs/regression_results.txt
 analytics/outputs/fare_regression_residuals.png
 analytics/outputs/fare_regression_pipeline.joblib
-```
+
 
 ---
 
 ## Module 3
 
-```text
+text
 support_assistant/docs/
 support_assistant/data/chroma_db/
-```
+
 
 ---
 
@@ -1867,17 +1860,17 @@ Verified:
 
 The pipeline successfully collected:
 
-```text
+text
 69 books
-```
+
 
 from three categories.
 
 The data was cleaned, converted to INR using:
 
-```text
+text
 1 GBP = 105.50 INR
-```
+
 
 and stored in a normalized SQLite database.
 
@@ -1889,28 +1882,28 @@ The project also demonstrates the required SQL operations and pandas equivalents
 
 The tuned Random Forest produced:
 
-```text
+text
 Accuracy  = 83.15%
 Precision = 86.54%
 Recall    = 66.18%
 F1-score  = 0.7500
 ROC-AUC   = 0.8389
 OOB Score = 0.8073
-```
+
 
 The best parameters were:
 
-```text
+text
 n_estimators = 200
 max_depth = 5
 max_features = sqrt
-```
+
 
 The best cross-validation F1-score was:
 
-```text
+text
 0.7408
-```
+
 
 ---
 
@@ -1918,12 +1911,12 @@ The best cross-validation F1-score was:
 
 The fare regression model produced:
 
-```text
+text
 MAE           = 18.3735
 RMSE          = 41.2921
 R²            = 0.3609
 Adjusted R²   = 0.2702
-```
+
 
 The results indicate that the model captures some meaningful fare variation but does not explain all of the variability in fares.
 
@@ -1935,7 +1928,7 @@ Residual analysis also suggests possible heteroscedasticity because residual spr
 
 The support assistant successfully implements a local retrieval-based workflow using:
 
-```text
+text
 8 policy documents
         ↓
 500-character chunks
@@ -1951,13 +1944,13 @@ LangGraph
 Structured answer
         ↓
 Pydantic validation
-```
+
 
 The system can run completely offline using:
 
-```text
+text
 MOCK_LLM=1
-```
+
 
 and optionally supports a real LLM configuration.
 
@@ -1983,27 +1976,27 @@ The repository uses feature branches during development.
 
 Important branches include:
 
-```text
+text
 main
 feature/analytics
 feature/data-pipeline
 feature/support-assistant
 feature/vercel-deployment
-```
+
 
 The project includes feature development followed by integration into the main branch.
 
 The Vercel deployment work was developed on:
 
-```text
+text
 feature/vercel-deployment
-```
+
 
 and subsequently merged into:
 
-```text
+text
 main
-```
+
 
 The support assistant was also developed through a dedicated feature branch and integrated into the main branch.
 
@@ -2015,7 +2008,7 @@ This provides a visible Git history demonstrating feature-based development.
 
 Representative commits include:
 
-```text
+text
 dc867c8 Merge Vercel deployment into main
 9ace161 Add Vercel deployment configuration
 a2e8c4c Complete analytics report
@@ -2027,7 +2020,7 @@ cb15969 Build support assistant implementation
 48bf1a Add data pipeline results and database
 95ba09 Build data pipeline processing scripts
 ac33d62 Initial project setup
-```
+
 
 ---
 
@@ -2035,9 +2028,9 @@ ac33d62 Initial project setup
 
 Repository:
 
-```text
+text
 https://github.com/adarsx25-E404/zepto-data-ai-platform
-```
+
 
 The repository contains the complete source code, scripts, datasets, generated outputs, model pipelines, support assistant implementation, Docker configuration, deployment configuration, and documentation.
 
@@ -2047,7 +2040,7 @@ The repository contains the complete source code, scripts, datasets, generated o
 
 For a quick local demonstration:
 
-```powershell
+powershell
 # 1. Activate virtual environment
 .\.venv\Scripts\Activate.ps1
 
@@ -2057,8 +2050,8 @@ pip install -r requirements-full.txt
 # 3. Run Module 1
 python .\data_pipeline\scrape_books.py
 python .\data_pipeline\clean_books.py
-python .\data_pipeline\load_books_db.py
-python .\data_pipeline\query_books.py
+python .\data_pipeline\database.py
+python .\data_pipeline\sql_analysis.py
 
 # 4. Run Module 2
 python .\analytics\01_eda.py
@@ -2070,21 +2063,21 @@ python .\support_assistant\embeddings.py
 
 # 6. Start Module 3 API
 uvicorn support_assistant.api:app --reload
-```
+
 
 Then open:
 
-```text
+text
 http://127.0.0.1:8000/docs
-```
+
 
 and test:
 
-```json
+json
 {
   "query": "What is the refund policy?"
 }
-```
+
 
 ---
 
@@ -2092,15 +2085,15 @@ and test:
 
 The repository also contains:
 
-```text
+text
 run_project.py
-```
+
 
 which can be used as a convenience entry point:
 
-```powershell
+powershell
 python .\run_project.py
-```
+
 
 For detailed debugging or individual module execution, use the module-specific commands documented above.
 
@@ -2167,4 +2160,3 @@ This repository was created as an academic capstone project for demonstrating pr
 * Docker
 * Serverless Deployment
 * Git/GitHub Workflow
-

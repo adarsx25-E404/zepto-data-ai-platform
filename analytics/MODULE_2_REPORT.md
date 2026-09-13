@@ -89,21 +89,29 @@ The generated confusion matrices and ROC curve provide additional evaluation evi
 
 ## 3. Chart Interpretations
 
-### Chart 1 — Survival Rate by Sex
+### Supporting Chart 1 — Survival Rate by Sex
 
-The chart shows a clear difference in survival rates between female and male passengers. Female passengers had a much higher survival rate than male passengers, while the male survival rate was substantially lower. This suggests that sex was an important factor associated with survival in the Titanic dataset.
+The chart shows a clear difference in survival rates between female and male passengers. Female passengers had a much higher survival rate than male passengers, indicating that sex was strongly associated with survival in the Titanic dataset.
 
-### Chart 2 — Survival Rate by Passenger Class
+### Supporting Chart 2 — Survival Rate by Passenger Class
 
-The chart shows that survival rates decreased as passenger class increased from first class to third class. First-class passengers had the highest survival rate, while third-class passengers had the lowest. This indicates that passenger class was strongly associated with survival.
+The chart shows differences in survival rates across passenger classes. First-class passengers had the highest survival rate, while third-class passengers had the lowest, indicating that passenger class was strongly associated with survival.
 
-### Chart 3 — Survival Rate by Sex and Passenger Class
+### Multivariate Chart 1 — Survival Rate by Sex and Passenger Class
 
-The chart shows that female passengers generally had higher survival rates than male passengers within each passenger class. Female first- and second-class passengers had particularly high survival rates, while male second- and third-class passengers had much lower survival rates. This shows that sex and passenger class together provide a clearer picture of survival patterns than either variable alone.
+This chart combines sex, passenger class, and survival rate to examine how the two passenger characteristics interact. Female passengers generally had higher survival rates within each passenger class, while male passengers showed substantially lower survival rates, particularly in second and third class. The combination of sex and class therefore provides more detailed information than either variable considered independently.
 
-### Chart 4 — Fare and Survival Analysis
+### Multivariate Chart 2 — Age vs Fare by Survival Status
 
-The fare distribution and survival analysis show that passenger fares were highly uneven, with a smaller number of passengers paying substantially higher fares. Higher passenger classes generally had higher fares and also higher survival rates, suggesting that fare may be related to socioeconomic differences represented by passenger class.
+This scatter plot combines passenger age, fare, and survival status. It shows how passenger age and fare varied together while using survival status to distinguish observations. The distribution also shows that higher fares were concentrated among a smaller group of passengers, while survival outcomes varied across age and fare levels.
+
+### Multivariate Chart 3 — Fare Distribution by Class and Survival
+
+This chart combines passenger class, fare, and survival status. Fare distributions differ substantially between passenger classes, with higher fares generally associated with higher passenger classes. Within the class groups, survival status also shows differences in the fare distributions, indicating that class and fare together provide additional context for survival patterns.
+
+### Multivariate Chart 4 — Survival Rate by Age Group and Sex
+
+This chart combines age group, sex, and survival rate. Survival patterns differ across age groups and between male and female passengers, showing that the relationship between sex and survival is not identical across all age ranges. This provides an additional multivariate view of survival beyond passenger class alone.
 
 
 
